@@ -12,7 +12,7 @@ def Index(request):
 
 def Article(request, article_id):
     context= {'id': article_id}
-    return render(request, 'main/article.html', context)
+    return render(request, 'main/components/article.html', context)
 
 
 #@is_authenticated
