@@ -1,6 +1,4 @@
 {% extends 'main/layouts/base.html' %}
-
-
 {% block content %}
 
     <div class = "d-flex justify-content-center">
@@ -11,17 +9,11 @@
         <div class="album py-5 bg-light">
             <div class="container">
                 <div class="row">
-
-
                     {% for i in latest_articles %}
-                       {% include 'main/components/card.html' with prev=i.get_text_preview  DATE=i.created_at TIME=i.updated_at image=i.thumbnail %}
+                        {% include 'main/components/card.html' with prev=i.get_text_preview  DATE=i.created_at TIME=i.updated_at image=i.thumbnail article_id=i.id %}
                         {% block card %}
                         {% endblock %}
-
-
                     {% endfor %}
-
-
                 </div>
             </div>
         </div>

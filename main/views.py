@@ -6,9 +6,7 @@ from main import models
 def Index(request):
 
     latest_articles = models.Article.objects.all().order_by('-created_at')[:10]
-
     context = {'latest_articles': latest_articles}
-
     return render(request, "main/index.html", context)
 
 
