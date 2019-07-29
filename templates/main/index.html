@@ -1,5 +1,4 @@
 {% extends 'main/layouts/base.html' %}
-{% load repeatedblocks %}
 
 
 {% block content %}
@@ -12,16 +11,17 @@
         <div class="album py-5 bg-light">
             <div class="container">
                 <div class="row">
-                    {% repeated_block cards %}
-                        {% include 'main/components/card.html' %}
+
+
+                    {% for i in latest_articles %}
+                       {% include 'main/components/card.html' with prev=i.get_text_preview  DATE=i.created_at TIME=i.updated_at image=i.thumbnail %}
                         {% block card %}
                         {% endblock %}
-                    {% endblock %}
 
-                    {% repeat cards %}
-                    {% repeat cards %}
-                    {% repeat cards %}
-                    {% repeat cards %}
+
+                    {% endfor %}
+
+
                 </div>
             </div>
         </div>
