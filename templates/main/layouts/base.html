@@ -3,112 +3,133 @@
 <!DOCTYPE html>
 <html lang="en" class="gr__getbootstrap_com">
 
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <meta name="description" content="">
-        <meta name="author" content="">
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-        <link rel="stylesheet"
-              href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-              integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
-              crossorigin="anonymous">
-        <link href = "{% static 'main/css/base.css' %}" rel="stylesheet">
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+          crossorigin="anonymous">
+    <link href="{% static 'main/css/base.css' %}" rel="stylesheet">
 
-        <title>Blogs App</title>
-    </head>
-
-
-    <body>
-    <!-- Navbar-->
+    <title>Blogs App</title>
+</head>
 
 
-        <header>
+<body>
+<!-- Navbar-->
 
-              <div class="collapse bg-dark container-fluid flex-left" id="navbarHeader">
-                <div class="container">
-                  <div class="row">
-                    <div class="col-sm-8 col-md-7 py-4">
-                      <h4 class="text-white">About</h4>
-                      <p class="text-muted">I am currently enrolled in the Python Django Bootcamp at Coding Blocks. This is a sample Blog application in which I will be creating the ability to not only view blogs but also to be able to log in and edit and delete the articles as well. No sign up functionality though for now :).</p>
-                    </div>
-                    <div class="col-sm-4 offset-md-1 py-4">
-                      <h4 class="text-white">Contact</h4>
-                        <p class="text-white"> I can be reached on <a href="https://www.linkedin.com/in/arnav-choudhury-88142a109/"> <img src=" {%  static   'main/images/linkedin.svg'  %}" height="15"/> </a></p>
 
-                    </div>
-                  </div>
-                </div>
-              </div>
+<header>
 
-              <div id="top" class="flex-left">
-                   <div class="navbar navbar-dark bg-dark box-shadow">
-                       <div class="container d-flex justify-content-between">
-                            <a class="navbar-brand d-flex align-items-center text-white">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg>
-                                <strong>Arnav's Blog</strong>
-                             </a>
-                             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarHeader" aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
-                                <span class="navbar-toggler-icon"></span>
-                             </button>
-                        </div>
-                    </div>
-              </div>
-
-        </header>
-
-    <section class="jumbotron text-center">
+    <div class="collapse bg-dark container-fluid flex-left" id="navbarHeader">
         <div class="container">
-          <h1 class="jumbotron-heading">Arnav's Blog</h1>
-          <p class="lead text-muted"> I know this really has no content and what is there is super boilerplate. But hey you gotta make do with what you have!</p>
-          <p>
-            <a href="login/" class="btn btn-primary my-2">Log In</a>
-          </p>
+            <div class="row">
+                <div class="col-sm-8 col-md-7 py-4">
+                    <h4 class="text-white">About</h4>
+                    <p class="text-muted">I am currently enrolled in the Python Django Bootcamp at Coding Blocks. This
+                        is a sample Blog application in which I will be creating the ability to not only view blogs but
+                        also to be able to log in and edit and delete the articles as well. No sign up functionality
+                        though for now :).</p>
+                </div>
+                <div class="col-sm-4 offset-md-1 py-4">
+                    <h4 class="text-white">Contact</h4>
+                    <p class="text-white"> I can be reached on <a
+                            href="https://www.linkedin.com/in/arnav-choudhury-88142a109/"> <img
+                            src=" {%  static   'main/images/linkedin.svg'  %}" height="15"/> </a></p>
+
+                </div>
+            </div>
         </div>
-    </section>
-
-    <!--Inherited Content-->
-    <div class="container" >
-
-        {% block content %} {% endblock %}
-
     </div>
 
+    <div id="top" class="flex-left">
+        <div class="navbar navbar-dark bg-dark box-shadow">
+            <div class="container d-flex justify-content-between">
+                <a class="navbar-brand d-flex align-items-center text-white">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                         stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                         class="mr-2">
+                        <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path>
+                        <circle cx="12" cy="13" r="4"></circle>
+                    </svg>
+                    <strong>Arnav's Blog</strong>
+                </a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarHeader"
+                        aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+            </div>
+        </div>
+    </div>
 
-    <!--Footer-->
+</header>
 
-     <!-- Want this to occupy full width of web page -->
+<section class="jumbotron text-center">
+    <div class="container">
+        <h1 class="jumbotron-heading">Arnav's Blog</h1>
+        <p class="lead text-muted"> I know this really has no content and what is there is super boilerplate. But hey
+            you gotta make do with what you have!</p>
+        <p>
+            <a href="login/" class="btn btn-primary my-2">Log In</a>
+        </p>
+    </div>
+</section>
 
-     <footer class="text-muted">
-      <div class="container">
+<!--Inherited Content-->
+<div class="container">
+
+    {% block content %} {% endblock %}
+
+</div>
+
+
+<!--Footer-->
+
+<!-- Want this to occupy full width of web page -->
+
+<footer class="text-muted">
+    <div class="container">
         <p class="float-right">
-          <a href="#top">Back to top</a>
+            <a href="#top">Back to top</a>
         </p>
         <p>Created by Arnav Choudhury using Bootstrap 4 and Django Web Framework</p>
         <p>This is a project for the <a href="https://codingblocks.com">Coding Blocks Boot Camp</a>.</p>
-      </div>
-    </footer>
+    </div>
+</footer>
 
 
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-            integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-            crossorigin="anonymous"></script>
-    <script> window.jQuery || document.write('<script src="../../assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
-            integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-            crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
-            integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-            crossorigin="anonymous"></script>
-    <script src="{% static 'main/js/holder.min.js' %}"></script>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+<script> window.jQuery || document.write('<script src="../../assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+<script src="{% static 'main/js/holder.min.js' %}"></script>
 
 
+<svg xmlns="http://www.w3.org/2000/svg" width="348" height="225" viewBox="0 0 348 225" preserveAspectRatio="none"
+     style="display: none; visibility: hidden; position: absolute; top: -100%; left: -100%;">
+    <defs>
+        <style type="text/css"></style>
+    </defs>
+    <text x="0" y="17" style="font-weight:bold;font-size:17pt;font-family:Arial, Helvetica, Open Sans, sans-serif">
+        Thumbnail
+    </text>
+</svg>
+<div id="SV#@*jiv1564051704263"></div>
+</body>
+</html>
 
-    <svg xmlns="http://www.w3.org/2000/svg" width="348" height="225" viewBox="0 0 348 225" preserveAspectRatio="none" style="display: none; visibility: hidden; position: absolute; top: -100%; left: -100%;"><defs><style type="text/css"></style></defs><text x="0" y="17" style="font-weight:bold;font-size:17pt;font-family:Arial, Helvetica, Open Sans, sans-serif">Thumbnail</text></svg><div id="SV#@*jiv1564051704263"></div></body></html>
 
-
-
-    </body>
+</body>
 </html>
 
 
