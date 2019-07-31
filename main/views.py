@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from main import models
 
 
@@ -11,11 +11,9 @@ def Index(request):
 
 def Article(request, pk):
 
-    article_info = models.Article.objects.get(id=pk)
-    author_list = article_info.authors.all() # get list of all articles for the given article
+    article_info = get_object_or_404(models.Article, pk=pk)
     context = {
         'article_info': article_info,
-        'author_list': author_list
     }
 
     return render(request, 'main/components/article.html', context)

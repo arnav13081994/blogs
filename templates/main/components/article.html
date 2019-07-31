@@ -9,7 +9,10 @@
 
 {% block content %}
 
-    <!--   The user will only be able to read the articles of they log in.-->
+    <!--
+    TODO   If the user has logged in, show this page as it is.
+    TODO   If the user has not logged in show the log in button with the message that they need to login in order to view the articles
+    -->
 
  <br>
  <br>
@@ -28,8 +31,8 @@
 
         <div class="d-flex justify-content-left">
             <h8> Created by: &nbsp; </h8>
-               {% for author in author_list %}
-                    <strong><em>   {{ author }} &nbsp; </em> </strong>
+               {% for author in article_info.authors.all %}
+                    <strong> <em>{{ author }} &nbsp;</em> </strong>
                 {% endfor %}
             <br>
             <br>
