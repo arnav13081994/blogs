@@ -17,6 +17,7 @@ class Article(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     content = models.TextField()
     thumbnail = models.ImageField(default='static/main/images/article_generic.jpeg')
+
     authors = models.ManyToManyField("Author")
 
     @property

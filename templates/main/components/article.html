@@ -1,24 +1,70 @@
 {% extends 'main/layouts/base.html' %}
+{% load static %}
 
+{% block extra_css %}
+
+     <link href="{% static 'main/css/article_css.css' %}" rel="stylesheet">
+
+{% endblock %}
 
 {% block content %}
 
-<h1> This is the page for article number {{ id }} </h1>
+    <!--   The user will only be able to read the articles of they log in.-->
+
+ <br>
+ <br>
+
+<div class="container-fluid">
+
+    <div class="parallax"> </div>
+
+    <article>
+        <h1 class="d-flex justify-content-center align-items-center">
+
+             {{ article_info.title }}
+            <br>
+            <br>
+        </h1>
+
+        <div class="d-flex justify-content-left">
+            <h8> Created by: &nbsp; </h8>
+               {% for author in author_list %}
+                    <strong><em>   {{ author }} &nbsp; </em> </strong>
+                {% endfor %}
+            <br>
+            <br>
+        </div>
+
+        <div class="d-flex justify-content-between">
+          <p> Created at: {{ article_info.created_at }} </p>
+          <p> Last Updated at: {{ article_info.updated_at }} </p>
+        </div>
+
+        <div>
+            <br>
+            <br>
+            <h4> {{ article_info.content }} </h4>
+
+        </div>
+
+        <!--
+
+        Format:
+
+        Thumbnail Image (parralax efefct)
 
 
+        Title
+        -------
+        created_at by author_name
+        last updated at (in small)
+        -----------
+        Content
 
+        -->
 
-<article>
+    </article>
 
-
-
-
-
-
-
-
-
-
-</article>
+</div>
 
 {% endblock  %}

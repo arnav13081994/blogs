@@ -9,6 +9,13 @@ def Index(request):
     return render(request, "main/index.html", context)
 
 
-def Article(request, article_id):
-    context = {'id': article_id}
+def Article(request, pk):
+
+    article_info = models.Article.objects.get(id=pk)
+    author_list = article_info.authors.all() # get list of all articles for the given article
+    context = {
+        'article_info': article_info,
+        'author_list': author_list
+    }
+
     return render(request, 'main/components/article.html', context)
