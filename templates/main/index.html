@@ -21,7 +21,7 @@
             <div class="container">
                 <div class="row">
                     {% for i in latest_articles %}
-                        {% include 'main/components/card.html' with prev=i.get_text_preview  DATE=i.created_at TIME=i.updated_at image=i.thumbnail article_id=i.id %}
+                        {% include 'main/components/card.html' with prev=i.get_text_preview  DATE=i.created_at TIME=i.updated_at image=i.thumbnail article_id=i.id title=i.title %}
                         {% block card %}
                         {% endblock %}
                     {% endfor %}
