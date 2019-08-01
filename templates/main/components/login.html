@@ -1,10 +1,28 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'main/layouts/base.html' %}
+{% load static %}
 
-</body>
-</html>
+{% block content %}
+    <div class="d-flex justify-content-center align-content-center flex-wrap">
+        <div class="">
+
+            <form>
+                <br>
+                <br>
+                <div class="h3 mb-3 font-weight-normal text-center"> Please Log In <br><br><br></div>
+                <div class = "">
+                    <strong>{{ form }}</strong>
+                </div>
+
+                <br>
+                <br>
+                <br>
+                  <button class="btn btn-lg btn-block btn-success" type="submit"> Log in</button>
+            </form>
+        </div>
+    </div>
+{% endblock %}
+
+
+
+{% block footer %}
+{% endblock %}

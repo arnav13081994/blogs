@@ -1,4 +1,11 @@
 {% extends 'main/layouts/base.html' %}
+{% block extra_css %} <!--
+TODO somehow make card.css go to base.css and the use that to disable hover for card's read button in card.html
+ -->
+{% endblock %}
+
+
+
 {% block content %}
 
 
@@ -15,7 +22,7 @@
         <p class="lead text-muted"> I know this really has no content and what is there is super boilerplate. But hey
             you gotta make do with what you have!</p>
         <p>
-            <a href="login/" class="btn btn-primary my-2">Log In</a>
+            <a href="/login" class="btn btn-success my-2">Log In</a>
         </p>
     </div>
 </section>

@@ -1,4 +1,7 @@
-{%  block card  %}
+{% block card %}
+
+
+
 <div class="col-md-4 box-shadow">
     <!-- Boostrap would divide the page in 12 columns by default. So 3 cards would get placed side by side since every card is 4 columns wide -->
     <div class="card mb-4">
@@ -12,8 +15,8 @@
             <p class="card-text">{{ prev }} ...........</p>
 
             <div class="btn-group d-flex justify-content-center align-items-center">
-                <button autofocus type="button" class="btn btn-lg btn-outline-secondary"><a
-                        href="article/{{article_id}}" style="text-decoration: none"> Read 😊 </a></button>
+                <button type="button" class="btn btn-lg btn-outline-secondary"><a
+                        href="article/{{article_id}}" style="text-decoration: none;"> Read 😊 </a></button>
             </div>
             <p></p>
         </div>
