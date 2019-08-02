@@ -1,12 +1,7 @@
 {% extends 'main/layouts/base.html' %}
 {% load static %}
-
-
-
 {% block extra_css %}
-
-     <link href="{% static 'main/css/signup.css' %}" rel="stylesheet">
-
+     <link href="{% static 'main/css/login.css' %}" rel="stylesheet">
 {% endblock %}
 
 
@@ -16,10 +11,10 @@
             <form method="post">
                 {% csrf_token %}
                 <br><br>
-                <div class="h3 mb-3 font-weight-normal text-center"> Author Sign Up <br><br><br></div>
+                <div class="h3 mb-3 font-weight-normal text-center"> Log In <br><br><br></div>
                 <strong>{{ form.as_p }}</strong> <br><br><br>
                 <div class="text-center">
-                  <button class="btn btn-lg btn-success" type="submit"> Sign Up</button>
+                  <button class="btn btn-lg btn-success" type="submit"> Log In</button>
                   <a href="/" class="btn btn-lg btn-danger"> Cancel </a>
                 </div>
             </form>

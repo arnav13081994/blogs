@@ -17,6 +17,12 @@ TODO somehow make card.css go to base.css and the use that to disable hover for 
         <p class="lead text-muted"> I know this really has no content and what is there is super boilerplate. But hey
             you gotta make do with what you have!</p>
         <p>
+            {% if not user.is_authenticated %}
+                 <a href="auth/login" class="btn btn-success my-2">Log In</a>
+                 <a href="auth/signup" class="btn btn-success my-2">Sign Up</a>
+            {% endif %}
+        </p>
+        <p>
                 {% if messages %}
                     {% for message in messages %}
                         {% if message.tags == "success" %}
@@ -26,21 +32,23 @@ TODO somehow make card.css go to base.css and the use that to disable hover for 
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
-                        {% else %}
-                             <a href="/login" class="btn btn-success my-2">Log In</a>
-                             <a href="/signup" class="btn btn-success my-2">Sign Up</a>
                         {% endif %}
                     {% endfor %}
-                {% else %}
-                    <a href="/login" class="btn btn-success my-2">Log In</a>
-                    <a href="/signup" class="btn btn-success my-2">Sign Up</a>
                 {% endif %}
         </p>
     </div>
 </section>
 
     <div class = "d-flex justify-content-center">
-        <h1> Go on Enjoy!<br> <br> </h1>
+
+         {% if not user.is_authenticated %}
+             <h1> Go on Enjoy!<br> <br> </h1>
+
+        {% else %}
+             <h1> Happy Reading, {{ user.first_name }}!<br> <br> </h1>
+
+        {% endif %}
+
     </div>
 
     <section>
