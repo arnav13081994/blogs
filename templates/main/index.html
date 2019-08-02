@@ -3,32 +3,44 @@
 TODO somehow make card.css go to base.css and the use that to disable hover for card's read button in card.html
  -->
 {% endblock %}
-
-
-
 {% block content %}
 
 
  <!--
     TODO   If the user has logged in, Do not show the login button.
-    TODO   If the user has not logged in show the log in button
+    TODO   If the user has logged in, Do not show the sign up button.
+    TODO   If the user has signed up, they should get auto logged in
     -->
-
-
-
 <section class="jumbotron text-center">
     <div class="container">
         <h1 class="jumbotron-heading">Arnav's Blog</h1>
         <p class="lead text-muted"> I know this really has no content and what is there is super boilerplate. But hey
             you gotta make do with what you have!</p>
         <p>
-            <a href="/login" class="btn btn-success my-2">Log In</a>
+                {% if messages %}
+                    {% for message in messages %}
+                        {% if message.tags == "success" %}
+                            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                <strong>{{ message }}</strong>
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                        {% else %}
+                             <a href="/login" class="btn btn-success my-2">Log In</a>
+                             <a href="/signup" class="btn btn-success my-2">Sign Up</a>
+                        {% endif %}
+                    {% endfor %}
+                {% else %}
+                    <a href="/login" class="btn btn-success my-2">Log In</a>
+                    <a href="/signup" class="btn btn-success my-2">Sign Up</a>
+                {% endif %}
         </p>
     </div>
 </section>
 
     <div class = "d-flex justify-content-center">
-        <h1> Go on Enjoy! <br> <br> </h1>
+        <h1> Go on Enjoy!<br> <br> </h1>
     </div>
 
     <section>

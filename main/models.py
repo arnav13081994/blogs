@@ -1,11 +1,18 @@
 from django.db import models
+from django.urls import reverse
 
 
 # Create your models here.
 
 
 class Author(models.Model):
+    DESIGNATION = (
+        ('Admin', 'Admin'),
+        ('Author', 'Author'),
+    )
     name = models.CharField(max_length=256)
+    designation = models.CharField(choices=DESIGNATION, max_length= 100)
+    email = models.EmailField(unique=True)
 
     def __str__(self):
         return self.name
@@ -26,3 +33,7 @@ class Article(models.Model):
 
     def __str__(self):
         return self.title
+
+    def get_absolute_url(self):
+        return reverse('main:article', kwargs={'pk': self.id})
+

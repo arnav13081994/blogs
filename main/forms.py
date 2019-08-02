@@ -1,9 +1,11 @@
 from django import forms
-from django.core.validators import MinLengthValidator
+from main import models
 
 
+class SignupForm(forms.ModelForm):
+    password = forms.CharField(widget=forms.PasswordInput(), min_length=8)
+    confirm_Password = forms.CharField(widget=forms.PasswordInput(), min_length=8)
 
-class LoginForm(forms.Form):
-    email = forms.CharField(widget=forms.EmailInput)
-    password = forms.CharField(widget=forms.PasswordInput, min_length=8)
-
+    class Meta:
+        model = models.Author
+        fields = "__all__"

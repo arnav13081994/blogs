@@ -5,8 +5,8 @@ from main import views
 urlpatterns = [
 
 
-    path("", views.Index, name="index"),
-    path("article/<int:pk>", views.Article, name="Article"),
-    path("login", views.Login, name="login")
+    path('', views.Index, name="index"),
+    path("article/<int:pk>", views.Article, name="article"),
+    path("signup", views.Signup, name="signup")
 
 ]

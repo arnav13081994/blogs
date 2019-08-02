@@ -1,0 +1,26 @@
+{% extends 'main/layouts/base.html' %}
+{% load static %}
+
+{% block content %}
+
+    <div class="d-flex justify-content-center align-content-center flex-wrap">
+            <form method="post">
+                {% csrf_token %}
+                <br>
+                <br>
+                <div class="h3 mb-3 font-weight-normal text-center"> Author Sign Up <br><br><br></div>
+                <div>
+                    <strong>{{ form.as_p }}</strong>
+                </div>
+                <br>
+                <br>
+                <br>
+                  <button class="btn btn-lg btn-block btn-success" type="submit"> Sign Up</button>
+            </form>
+    </div>
+
+
+{% endblock %}
+
+{% block footer %}
+{% endblock %}
