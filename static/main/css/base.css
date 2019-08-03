@@ -36,3 +36,8 @@ footer {
 footer p {
   margin-bottom: .25rem;
 }
+
+.btn-outline-secondary:hover {
+    color: #fff;
+    background-color: #fff !important;
+  }
