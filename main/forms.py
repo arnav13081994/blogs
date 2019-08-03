@@ -15,5 +15,5 @@ class LoginForm(forms.ModelForm):
 
     class Meta:
         model = models.Author
-        fields = ('email',)
+        fields = ('name',)
 
