@@ -17,15 +17,14 @@ def Signup(request):
     if request.method == "POST":
         form = forms.SignupForm(request.POST)
         if form.is_valid() and form.cleaned_data['password'] == form.cleaned_data['confirm_Password']:
-            author = form.save()
+            form.save()
             email = form.cleaned_data['email']
             password = form.cleaned_data['password']
             name = form.cleaned_data['name']
             User.objects.create_user(username=name,
                                      email=email,
                                      password = password,
-                                     first_name = name.split()[0],
-                                     last_name=name.split()[1]
+                                     first_name = name.split()[0]
                                      )  # Modify to set permissions according to chosen designation
             user_new = authenticate(username=name, password=password)   # It is because django by default will use username and password to authenticate
             login(request, user_new)
@@ -42,9 +41,9 @@ def Login(request):
     if request.method == "POST":
         form = forms.LoginForm(request.POST)
         if form.is_valid():
-            email = form.cleaned_data['email']
+            username = form.cleaned_data['name']
             password = form.cleaned_data['password']
-            user = authenticate(username=email, password=password, request=request)
+            user = authenticate(username=username, password=password, request=request)
             print(user)
             if user:
                 login(request, user)
