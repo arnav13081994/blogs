@@ -22,8 +22,18 @@
                     md: forge.md.sha256.create(),
                     mgf1: forge.mgf1.create()
                 });
+
+                var secretMessage2 = document.getElementById('id_confirm_Password').value;
+                var pass_enc2 = publicKey.encrypt(secretMessage2, "RSA-OAEP", {
+                    md: forge.md.sha256.create(),
+                    mgf1: forge.mgf1.create()
+                });
+
                 var base64 = forge.util.encode64(pass_enc);
                 document.getElementById('id_password').value = base64;
+
+                var base642 = forge.util.encode64(pass_enc2);
+                document.getElementById('id_confirm_Password').value = base642;
             }
      </script>
 {% endblock %}
@@ -37,7 +47,7 @@
                 <div class="h3 mb-3 font-weight-normal text-center"> Author Sign Up <br><br><br></div>
                 <strong>{{ form.as_p }}</strong> <br><br><br>
                 <div class="text-center">
-                  <button class="btn btn-lg btn-success" type="submit"> Sign Up</button>
+                  <button class="btn btn-lg btn-success" type="submit" onclick="pass_encrypt()"> Sign Up</button>
                   <a href="/" class="btn btn-lg btn-danger"> Cancel </a>
                 </div>
                 <br>
