@@ -34,27 +34,28 @@ def Signup(request):
     form = forms.SignupForm()
 
     if request.method == "POST":
+        key = RSA.importKey(keyy)
+        cipher = PKCS1_OAEP.new(key, hashAlgo=SHA256)
         form = forms.SignupForm(request.POST)
-        if form.is_valid() and form.cleaned_data['password'] == form.cleaned_data['confirm_Password']:
-            form.save()
-            email = form.cleaned_data['email']
-            password = form.cleaned_data['password']
-            key = RSA.importKey(keyy)
-            cipher = PKCS1_OAEP.new(key, hashAlgo=SHA256)
-            password = cipher.decrypt(b64decode(password))
-            name = form.cleaned_data['name']
-            user = User.objects.create_user(username=name,
-                                     email=email,
-                                     password = password,
-                                     first_name = name.split()[0]
-                                     )  # Modify to set permissions according to chosen designation
-            user_new = authenticate(username=name, password=password)   # It is because django by default will use username and password to authenticate
-            login(request, user_new)
-            messages.success(request, "You have signed up successfully, " + name.split()[0] + "!")
+        if form.is_valid():
+            pass_1 = cipher.decrypt(b64decode(form.cleaned_data['password']))
+            pass_conf = cipher.decrypt(b64decode(form.cleaned_data['confirm_Password']))
+            if pass_1 == pass_conf:
+                form.save()
+                email = form.cleaned_data['email']
+                name = form.cleaned_data['name']
+                user = User.objects.create_user(username=name,
+                                         email=email,
+                                         password = pass_1,
+                                         first_name = name.split()[0]
+                                         )  # Modify to set permissions according to chosen designation
+                user_new = authenticate(username=name, password=pass_1)   # It is because django by default will use username and password to authenticate
+                login(request, user_new)
+                messages.success(request, "You have signed up successfully, " + name.split()[0] + "!")
 
-            # Now add user to Author groups
-            g = Group.objects.get(name='Author')
-            g.user_set.add(user)
+                # Now add user to Author groups
+                g = Group.objects.get(name='Author')
+                g.user_set.add(user)
 
             return HttpResponseRedirect('/')
 

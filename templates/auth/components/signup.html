@@ -1,15 +1,8 @@
 {% extends 'base.html' %}
-
 {% load static %}
-
-
-
 {% block extra_css %}
-
      <link href="{% static 'main/css/signup.css' %}" rel="stylesheet">
-
 {% endblock %}
-
 
 {% block extra_js %}
      <script src="https://cdn.jsdelivr.net/npm/node-forge@0.7.0/dist/forge.min.js"></script>
@@ -18,22 +11,21 @@
                 var pubkeystr = '-----BEGIN PUBLIC KEY-----MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDlecLTo3GykOcUuuA/vah+EwO0gcP+COsJSnBnFpuG6sbo8yeg4oiZleQ0OMjio+p9r1fc1fDlpjwhW6bexDJAEbKxkjjKwn41f/0jV028+QJ0rUSbx0CP43fSE2zVGXOnM6vwTmzJOTvx6laTzw+fU0t5EWTZp3k762NpMGz3AQIDAQAB-----END PUBLIC KEY-----';
                 var publicKey = forge.pki.publicKeyFromPem(pubkeystr);
                 var secretMessage = document.getElementById('id_password').value;
-                var pass_enc = publicKey.encrypt(secretMessage, "RSA-OAEP", {
-                    md: forge.md.sha256.create(),
-                    mgf1: forge.mgf1.create()
-                });
-
                 var secretMessage2 = document.getElementById('id_confirm_Password').value;
-                var pass_enc2 = publicKey.encrypt(secretMessage2, "RSA-OAEP", {
-                    md: forge.md.sha256.create(),
-                    mgf1: forge.mgf1.create()
-                });
-
-                var base64 = forge.util.encode64(pass_enc);
-                document.getElementById('id_password').value = base64;
-
-                var base642 = forge.util.encode64(pass_enc2);
-                document.getElementById('id_confirm_Password').value = base642;
+                if (secretMessage && secretMessage2) {
+                    var pass_enc = publicKey.encrypt(secretMessage, "RSA-OAEP", {
+                        md: forge.md.sha256.create(),
+                        mgf1: forge.mgf1.create()
+                    });
+                    var pass_enc2 = publicKey.encrypt(secretMessage2, "RSA-OAEP", {
+                        md: forge.md.sha256.create(),
+                        mgf1: forge.mgf1.create()
+                    });
+                    var base64 = forge.util.encode64(pass_enc);
+                    document.getElementById('id_password').value = base64;
+                    var base642 = forge.util.encode64(pass_enc2);
+                    document.getElementById('id_confirm_Password').value = base642;
+                    }
             }
      </script>
 {% endblock %}
