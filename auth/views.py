@@ -1,12 +1,31 @@
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from django.contrib import messages
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, Group
 from django.contrib.auth import authenticate, login
-from django.contrib.auth.views import LoginView, LogoutView
-from main import models
 from main import forms
 
+from Crypto.Cipher import PKCS1_OAEP
+from Crypto.PublicKey import RSA
+from Crypto.Hash import SHA256
+from base64 import b64decode
+
+
+keyy = b'''-----BEGIN RSA PRIVATE KEY-----
+MIICXQIBAAKBgQDlecLTo3GykOcUuuA/vah+EwO0gcP+COsJSnBnFpuG6sbo8yeg
+4oiZleQ0OMjio+p9r1fc1fDlpjwhW6bexDJAEbKxkjjKwn41f/0jV028+QJ0rUSb
+x0CP43fSE2zVGXOnM6vwTmzJOTvx6laTzw+fU0t5EWTZp3k762NpMGz3AQIDAQAB
+AoGBAMTL43W1GfDVrBdvHJoNgM5+aBMJppfZ9heFq1f9X2wZNHTa8wVawWNV1Nuk
+R0N258bZ9TQClhGcuryw6S7qe1wvFkh7bDSRBU1I3x0P0for800ud3VsXTnvDqMn
+BxieO5yAWEmMc6hfV5pI30jSX0oGsWwjQi2kZAvTG15MrAkxAkEA8Qp6wojxFixS
+mx9c3Unn8wB6mnG7t4x8uHJ/SpOSgjACFV+tApvz1mFIu/kCbgHqU7zrSkr4th/f
+IhpltJojVwJBAPO3id2RIezqym8KPWrXtsnujMSDmnbZagAJ7D0PQ4zqI52OcfPY
+5qT45cbICLVRR9+jmjyWS2L+X8KHjeCs2WcCQDbtImgt+HILC4/Zp7mtW7OeClIj
+VJlQ5CLLxIHj+uC7u93O/Ye4renOJVrgNVOIEDOguyUkzGQEAz6sMTzkWuUCQQCi
+/HdiiZCalFpU8BAqx6AiYzoYobpHCRbud7RZEUAnmN3AnGZwoPl+EkX4LgZE29qp
+IQwgwJIh3ePEgErNmkq5AkB2er6lE0/Ca8zhVwJBByTE+R7Y0KGn4w+wa5RSE9bk
+CYy1h2PPobHFY+gv6g9ITQaJtWx7yGI2ocNIHXue/O85
+-----END RSA PRIVATE KEY-----'''
 
 
 # Create your views here.
@@ -20,8 +39,11 @@ def Signup(request):
             form.save()
             email = form.cleaned_data['email']
             password = form.cleaned_data['password']
+            key = RSA.importKey(keyy)
+            cipher = PKCS1_OAEP.new(key, hashAlgo=SHA256)
+            password = cipher.decrypt(b64decode(password))
             name = form.cleaned_data['name']
-            User.objects.create_user(username=name,
+            user = User.objects.create_user(username=name,
                                      email=email,
                                      password = password,
                                      first_name = name.split()[0]
@@ -29,6 +51,11 @@ def Signup(request):
             user_new = authenticate(username=name, password=password)   # It is because django by default will use username and password to authenticate
             login(request, user_new)
             messages.success(request, "You have signed up successfully, " + name.split()[0] + "!")
+
+            # Now add user to Author groups
+            g = Group.objects.get(name='Author')
+            g.user_set.add(user)
+
             return HttpResponseRedirect('/')
 
     context = {'form': form}
@@ -43,8 +70,10 @@ def Login(request):
         if form.is_valid():
             username = form.cleaned_data['name']
             password = form.cleaned_data['password']
+            key = RSA.importKey(keyy)
+            cipher = PKCS1_OAEP.new(key, hashAlgo=SHA256)
+            password = cipher.decrypt(b64decode(password))
             user = authenticate(username=username, password=password, request=request)
-            print(user)
             if user:
                 login(request, user)
                 messages.success(request, "You have logged in successfully!")

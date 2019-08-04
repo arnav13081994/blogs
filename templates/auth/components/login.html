@@ -6,6 +6,22 @@
      <link href="{% static 'main/css/login.css' %}" rel="stylesheet">
 {% endblock %}
 
+{% block extra_js %}
+     <script src="https://cdn.jsdelivr.net/npm/node-forge@0.7.0/dist/forge.min.js"></script>
+     <script>
+         function pass_encrypt() {
+                var pubkeystr = '-----BEGIN PUBLIC KEY-----MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDlecLTo3GykOcUuuA/vah+EwO0gcP+COsJSnBnFpuG6sbo8yeg4oiZleQ0OMjio+p9r1fc1fDlpjwhW6bexDJAEbKxkjjKwn41f/0jV028+QJ0rUSbx0CP43fSE2zVGXOnM6vwTmzJOTvx6laTzw+fU0t5EWTZp3k762NpMGz3AQIDAQAB-----END PUBLIC KEY-----';
+                var publicKey = forge.pki.publicKeyFromPem(pubkeystr);
+                var secretMessage = document.getElementById('id_password').value;
+                var pass_enc = publicKey.encrypt(secretMessage, "RSA-OAEP", {
+                    md: forge.md.sha256.create(),
+                    mgf1: forge.mgf1.create()
+                });
+                var base64 = forge.util.encode64(pass_enc);
+                document.getElementById('id_password').value = base64;
+            }
+     </script>
+{% endblock %}
 
 {% block content %}
 
@@ -16,7 +32,7 @@
                 <div class="h3 mb-3 font-weight-normal text-center"> Log In <br><br><br></div>
                 <strong>{{ form.as_p }}</strong> <br><br><br>
                 <div class="text-center">
-                  <button class="btn btn-lg btn-success" type="submit"> Log In</button>
+                  <button class="btn btn-lg btn-success" type="submit" onclick="pass_encrypt()"> Log In</button>
                   <a href="/" class="btn btn-lg btn-danger"> Cancel </a>
                 </div>
                 <br>

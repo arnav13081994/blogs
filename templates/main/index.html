@@ -51,9 +51,28 @@
                         {% block card %}
                         {% endblock %}
                     {% endfor %}
+                    <!--  This is where a plus element will be displayed that can be used by the user to Create a new article -->
                 </div>
             </div>
         </div>
     </section>
+
+    <section>
+        <div class="container">
+             <div class="row">
+                 <div class="col-sm-2"></div>
+                 <div class="col-sm-8">
+                     <a href="/add_article" style="text-decoration:none;">
+                         <button type="button" class="btn btn-success btn-lg btn-block">
+                             <strong>Add Article &nbsp; &nbsp;<span>&#43;</span></strong>
+                         </button>
+                     </a>
+                 </div>
+                 <div class="col-sm-2"></div>
+             </div>
+        </div>
+    </section>
+
+
 
 {% endblock  %}
