@@ -1,9 +1,7 @@
 {% extends 'base.html' %}
-
-
 {% load static %}
 {% block extra_css %}
-     <link href="{% static 'main/css/login.css' %}" rel="stylesheet">
+     <link href="{% static 'main/css/reset.css' %}" rel="stylesheet">
 {% endblock %}
 
 {% block extra_js %}
@@ -12,17 +10,22 @@
          function pass_encrypt() {
                 var pubkeystr = '-----BEGIN PUBLIC KEY-----MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDlecLTo3GykOcUuuA/vah+EwO0gcP+COsJSnBnFpuG6sbo8yeg4oiZleQ0OMjio+p9r1fc1fDlpjwhW6bexDJAEbKxkjjKwn41f/0jV028+QJ0rUSbx0CP43fSE2zVGXOnM6vwTmzJOTvx6laTzw+fU0t5EWTZp3k762NpMGz3AQIDAQAB-----END PUBLIC KEY-----';
                 var publicKey = forge.pki.publicKeyFromPem(pubkeystr);
-                var secretMessage = document.getElementById('id_password').value;
-
-                if (secretMessage) {
-
+                var secretMessage = document.getElementById('id_new_password').value;
+                var secretMessage2 = document.getElementById('id_confirm_new_password').value;
+                if (secretMessage && secretMessage2) {
                     var pass_enc = publicKey.encrypt(secretMessage, "RSA-OAEP", {
                         md: forge.md.sha256.create(),
                         mgf1: forge.mgf1.create()
                     });
+                    var pass_enc2 = publicKey.encrypt(secretMessage2, "RSA-OAEP", {
+                        md: forge.md.sha256.create(),
+                        mgf1: forge.mgf1.create()
+                    });
                     var base64 = forge.util.encode64(pass_enc);
-                    document.getElementById('id_password').value = base64;
-                }
+                    document.getElementById('id_new_password').value = base64;
+                    var base642 = forge.util.encode64(pass_enc2);
+                    document.getElementById('id_confirm_new_password').value = base642;
+                    }
             }
      </script>
 {% endblock %}
@@ -33,19 +36,15 @@
             <form method="post">
                 {% csrf_token %}
                 <br><br>
-                <div class="h3 mb-3 font-weight-normal text-center"> Log In <br><br><br></div>
+                <div class="h3 mb-3 font-weight-normal text-center"> Reset Password <br><br><br></div>
                 <strong>{{ form.as_p }}</strong> <br><br><br>
                 <div class="text-center">
-                  <button class="btn btn-lg btn-success" type="submit" onclick="pass_encrypt()"> Log In</button>
+                  <button class="btn btn-lg btn-success" type="submit" onclick="pass_encrypt()"> Reset Password</button>
                   <a href="/" class="btn btn-lg btn-danger"> Cancel </a>
                 </div>
                 <br>
-                <p class="text-center"> Don't have an account? <a href="/auth/signup"> Signup</a></p>
-                <p class="text-center"> Can't login?  <a href="/auth/reset"> Reset Password.</a></p>
-
-
+                <p class="text-center"> Already have an account? <a href="/auth/login"> Login </a></p>
             </form>
-
     </div>
 
 

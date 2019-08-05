@@ -15,7 +15,7 @@ class Author(models.Model):
         (4, '5+ years'),
     )
     name = models.CharField(max_length=256)
-    email = models.EmailField(unique=True)
+    email = models.EmailField()
     experience = models.IntegerField(choices=EXPERIENCE, default='2')
     reason = models.TextField()
 

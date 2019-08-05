@@ -4,6 +4,7 @@ from django.contrib import messages
 from django.contrib.auth.models import User, Group
 from django.contrib.auth import authenticate, login
 from main import forms
+from main import models
 
 from Crypto.Cipher import PKCS1_OAEP
 from Crypto.PublicKey import RSA
@@ -32,7 +33,6 @@ CYy1h2PPobHFY+gv6g9ITQaJtWx7yGI2ocNIHXue/O85
 
 def Signup(request):
     form = forms.SignupForm()
-
     if request.method == "POST":
         key = RSA.importKey(keyy)
         cipher = PKCS1_OAEP.new(key, hashAlgo=SHA256)
@@ -44,6 +44,7 @@ def Signup(request):
                 form.save()
                 email = form.cleaned_data['email']
                 name = form.cleaned_data['name']
+
                 user = User.objects.create_user(username=name,
                                          email=email,
                                          password = pass_1,
@@ -82,3 +83,32 @@ def Login(request):
 
     context = {'form': form}
     return render(request, "auth/components/login.html", context)
+
+
+
+def Reset(request):
+    form = forms.ResetForm()
+
+    if request.method == "POST":
+        key = RSA.importKey(keyy)
+        cipher = PKCS1_OAEP.new(key, hashAlgo=SHA256)
+        form = forms.ResetForm(request.POST)
+        if form.is_valid():
+            pass_1 = cipher.decrypt(b64decode(form.cleaned_data['new_password']))
+            pass_conf = cipher.decrypt(b64decode(form.cleaned_data['confirm_new_password']))
+            if pass_1 == pass_conf:
+                email = form.cleaned_data['email']
+                obj = models.Author.objects.get(email=email)
+                name = obj.name
+                user = User.objects.get(username=name)
+                user.set_password(pass_1)
+                user.save()
+                user = authenticate(username=name, password=pass_1, request=request)
+                if user:
+                    login(request, user)
+                    messages.success(request, "Password reset successfully!")
+                    return HttpResponseRedirect('/')
+    context = {
+        'form': form
+    }
+    return render(request, "auth/components/reset.html", context)

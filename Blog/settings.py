@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'main',
+    'anymail'
 
 ]
 
@@ -126,6 +127,33 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static')
-         ]
 
+
+
+         ]
+# redirect failed login
 LOGIN_REDIRECT_URL = '/'
+
+# Mail server settings
+SPARKPOST_API_KEY = '6255603a137bec738ad0ddd64e079f315cdf6417'
+SPARKPOST_BASE_URI = 'api.sparkpost.com'
+
+# We will use anymail's wrapper for Sparkpost. It combines django email backend with sparkpost for added functionality and is stable
+EMAIL_BACKEND = "anymail.backends.sparkpost.EmailBackend"
+#DEFAULT_FROM_EMAIL = "a@example.com"  # if you don't already have this in settings
+#SERVER_EMAIL = "your-server@example.com"  # ditto (default from-email for Django errors)
+
+
+
+ANYMAIL = {
+
+    "SPARKPOST_API_KEY": '6255603a137bec738ad0ddd64e079f315cdf6417',
+    "SPARKPOST_SENDER_DOMAIN": 'testing@sparkpostbox.com',
+
+    "SPARKPOST_OPTIONS" : { ## Track email metrics common to every mail
+        'track_opens': True,
+        'track_clicks': True,
+        'transactional': True,
+    }
+
+}
