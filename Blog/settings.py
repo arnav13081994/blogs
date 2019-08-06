@@ -39,10 +39,16 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    # my apps
     'main',
-    'anymail'
+    'crispy_forms',
 
 ]
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -62,7 +68,7 @@ TEMPLATES = [
         'DIRS': [
             os.path.join(BASE_DIR, 'templates')
         ],
-        'APP_DIRS': True,
+        'APP_DIRS': True,  # Don't change this otherwise it will not be able to find the admin page. It is in the Admin apps directory
         'OPTIONS': {
             'context_processors': [
                 'django.template.context_processors.debug',
@@ -127,33 +133,19 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static')
-
-
-
          ]
+
+
 # redirect failed login
 LOGIN_REDIRECT_URL = '/'
 
-# Mail server settings
-SPARKPOST_API_KEY = '6255603a137bec738ad0ddd64e079f315cdf6417'
-SPARKPOST_BASE_URI = 'api.sparkpost.com'
-
-# We will use anymail's wrapper for Sparkpost. It combines django email backend with sparkpost for added functionality and is stable
-EMAIL_BACKEND = "anymail.backends.sparkpost.EmailBackend"
-#DEFAULT_FROM_EMAIL = "a@example.com"  # if you don't already have this in settings
-#SERVER_EMAIL = "your-server@example.com"  # ditto (default from-email for Django errors)
-
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_USE_TLS = True
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'blog.django.arnav@gmail.com'
+EMAIL_HOST_PASSWORD = 'arnav12chou!'
+DEFAULT_FROM_EMAIL = 'blog.django.arnav@gmail.com'
 
 
-ANYMAIL = {
 
-    "SPARKPOST_API_KEY": '6255603a137bec738ad0ddd64e079f315cdf6417',
-    "SPARKPOST_SENDER_DOMAIN": 'testing@sparkpostbox.com',
-
-    "SPARKPOST_OPTIONS" : { ## Track email metrics common to every mail
-        'track_opens': True,
-        'track_clicks': True,
-        'transactional': True,
-    }
-
-}

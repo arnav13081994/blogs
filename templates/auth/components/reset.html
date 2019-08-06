@@ -1,5 +1,9 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load crispy_forms_tags %}
+
+
+
 {% block extra_css %}
      <link href="{% static 'main/css/reset.css' %}" rel="stylesheet">
 {% endblock %}
@@ -33,11 +37,11 @@
 {% block content %}
 
     <div class="d-flex justify-content-center align-content-center flex-wrap">
-            <form method="post">
+            <form method="post" >
                 {% csrf_token %}
                 <br><br>
                 <div class="h3 mb-3 font-weight-normal text-center"> Reset Password <br><br><br></div>
-                <strong>{{ form.as_p }}</strong> <br><br><br>
+                <strong>{{ form | crispy }}</strong> <br><br><br>
                 <div class="text-center">
                   <button class="btn btn-lg btn-success" type="submit" onclick="pass_encrypt()"> Reset Password</button>
                   <a href="/" class="btn btn-lg btn-danger"> Cancel </a>

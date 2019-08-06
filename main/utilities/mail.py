@@ -1,28 +1,23 @@
-from django.core.mail import send_mail, EmailMessage
-
-import os
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'Blog.settings')
-#from sparkpost import SparkPost
-#from django.conf import settings
-#sp = SparkPost(settings.SPARKPOST_API_KEY)  # this will use the api key specified in settings.py
-
-message = EmailMessage(
-    to = ["Arnav <arnav@meshedu.org>"]
-)
+from django.core.mail import EmailMessage
+from django.template.loader import render_to_string
 
 
-message.esp_extra = {
-    'transactional': True,  # treat as transactional for unsubscribe and suppression
-    'description': "Marketing test-run for new templates",
-    'template': 'my-first-email',
-    'use_sandbox': True
 
+to_list = ["arnav13@gmail.com"]
+subject = "Thanks for signing up!"
+template_name = 'email/email.html'
+context = {
+    'username': "fry",
+    'password': "password_yo",
+    'full_name': "Philip J Fry"
 }
 
 
 
+msg_html = render_to_string(template_name, context)
 
-if __name__ == "__main__":
+msg = EmailMessage(subject=subject, body= msg_html, to=to_list)
 
-    message.send()
+msg.content_subtype = "html"  # Main content is now text/html
 
+msg.send()

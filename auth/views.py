@@ -41,23 +41,24 @@ def Signup(request):
             pass_1 = cipher.decrypt(b64decode(form.cleaned_data['password']))
             pass_conf = cipher.decrypt(b64decode(form.cleaned_data['confirm_Password']))
             if pass_1 == pass_conf:
-                form.save()
+                author = form.save(commit=False) # An author instance should get created
                 email = form.cleaned_data['email']
                 name = form.cleaned_data['name']
-
-                user = User.objects.create_user(username=name,
+                new_user = User.objects.create_user(username=name,
                                          email=email,
                                          password = pass_1,
                                          first_name = name.split()[0]
                                          )  # Modify to set permissions according to chosen designation
-                user_new = authenticate(username=name, password=pass_1)   # It is because django by default will use username and password to authenticate
-                login(request, user_new)
-                messages.success(request, "You have signed up successfully, " + name.split()[0] + "!")
+                author.user = new_user
+                author.save()
 
                 # Now add user to Author groups
                 g = Group.objects.get(name='Author')
-                g.user_set.add(user)
+                g.user_set.add(new_user)
 
+                user_new = authenticate(username=name, password=pass_1)   # It is because django by default will use username and password to authenticate
+                login(request, user_new)
+                messages.success(request, "You have signed up successfully, " + name.split()[0] + "!")
             return HttpResponseRedirect('/')
 
     context = {'form': form}
@@ -112,3 +113,9 @@ def Reset(request):
         'form': form
     }
     return render(request, "auth/components/reset.html", context)
+
+
+
+def send_email(request):
+    pass
+
