@@ -3,8 +3,9 @@
 {% load crispy_forms_tags %}
 
 
+
 {% block extra_css %}
-     <link href="{% static 'main/css/signup.css' %}" rel="stylesheet">
+     <link href="{% static 'main/css/reset.css' %}" rel="stylesheet">
 {% endblock %}
 
 {% block extra_js %}
@@ -13,8 +14,8 @@
          function pass_encrypt() {
                 var pubkeystr = '-----BEGIN PUBLIC KEY-----MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDlecLTo3GykOcUuuA/vah+EwO0gcP+COsJSnBnFpuG6sbo8yeg4oiZleQ0OMjio+p9r1fc1fDlpjwhW6bexDJAEbKxkjjKwn41f/0jV028+QJ0rUSbx0CP43fSE2zVGXOnM6vwTmzJOTvx6laTzw+fU0t5EWTZp3k762NpMGz3AQIDAQAB-----END PUBLIC KEY-----';
                 var publicKey = forge.pki.publicKeyFromPem(pubkeystr);
-                var secretMessage = document.getElementById('id_password').value;
-                var secretMessage2 = document.getElementById('id_confirm_Password').value;
+                var secretMessage = document.getElementById('id_new_password').value;
+                var secretMessage2 = document.getElementById('id_confirm_new_password').value;
                 if (secretMessage && secretMessage2) {
                     var pass_enc = publicKey.encrypt(secretMessage, "RSA-OAEP", {
                         md: forge.md.sha256.create(),
@@ -25,9 +26,9 @@
                         mgf1: forge.mgf1.create()
                     });
                     var base64 = forge.util.encode64(pass_enc);
-                    document.getElementById('id_password').value = base64;
+                    document.getElementById('id_new_password').value = base64;
                     var base642 = forge.util.encode64(pass_enc2);
-                    document.getElementById('id_confirm_Password').value = base642;
+                    document.getElementById('id_confirm_new_password').value = base642;
                     }
             }
      </script>
@@ -36,30 +37,13 @@
 {% block content %}
 
     <div class="d-flex justify-content-center align-content-center flex-wrap">
-            <form method="post">
+            <form method="post" >
                 {% csrf_token %}
                 <br><br>
-                <div class="h3 mb-3 font-weight-normal text-center"> Author Sign Up <br><br><br></div>
-                <div class="form-row">
-                      <div class="form-group col-md-6 mb-0">
-                        {{ form.name|as_crispy_field }}
-                      </div>
-                      <div class="form-group col-md-6 mb-0">
-                        {{ form.email|as_crispy_field }}
-                      </div>
-                </div>
-                <div class="form-row">
-                      <div class="form-group col-md-6 mb-0">
-                        {{ form.password|as_crispy_field }}
-                      </div>
-                      <div class="form-group col-md-6 mb-0">
-                        {{ form.confirm_Password |as_crispy_field }}
-                      </div>
-                </div>
-                {{ form.experience | as_crispy_field }}
-                {{ form.reason | as_crispy_field }}
+                <div class="h3 mb-3 font-weight-normal text-center"> Reset Password <br><br><br></div>
+                <strong>{{ form | crispy }}</strong> <br><br><br>
                 <div class="text-center">
-                  <button class="btn btn-lg btn-success" type="submit" onclick="pass_encrypt()"> Sign Up</button>
+                  <button class="btn btn-lg btn-success" type="submit" onclick="pass_encrypt()"> Reset Password</button>
                   <a href="/" class="btn btn-lg btn-danger"> Cancel </a>
                 </div>
                 <br>

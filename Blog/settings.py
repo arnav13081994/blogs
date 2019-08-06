@@ -39,9 +39,16 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    # my apps
     'main',
+    'crispy_forms',
 
 ]
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -61,7 +68,7 @@ TEMPLATES = [
         'DIRS': [
             os.path.join(BASE_DIR, 'templates')
         ],
-        'APP_DIRS': True,
+        'APP_DIRS': True,  # Don't change this otherwise it will not be able to find the admin page. It is in the Admin apps directory
         'OPTIONS': {
             'context_processors': [
                 'django.template.context_processors.debug',
@@ -128,4 +135,17 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static')
          ]
 
+
+# redirect failed login
 LOGIN_REDIRECT_URL = '/'
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_USE_TLS = True
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'blog.django.arnav@gmail.com'
+EMAIL_HOST_PASSWORD = 'arnav12chou!'
+DEFAULT_FROM_EMAIL = 'blog.django.arnav@gmail.com'
+
+
+
